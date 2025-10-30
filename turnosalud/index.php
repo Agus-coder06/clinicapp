@@ -13,6 +13,8 @@ if (!isset($_SESSION['nombre'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Turnos Médicos</title>
   <link rel="stylesheet" href="./css/styles.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
   <header>
@@ -25,7 +27,6 @@ if (!isset($_SESSION['nombre'])) {
 
   <main>
     <aside class="menu">
-      <h3>Turnos</h3>
       <ul>
         <li class="active">Buscador Turnos</li>
         <li><a href="./pages/prox_turnos.html">Próximos turnos</a></li>
@@ -51,14 +52,15 @@ if (!isset($_SESSION['nombre'])) {
     <option value="oftalmologia">Oftalmología</option>
     <option value="ginecologia">Ginecología</option>
   </select>
-
-  <button onclick="buscarMedicos()" style="padding: 6px 15px; background-color: white; color: #0073b7; border: none; border-radius: 5px; cursor: pointer;">
+<br>
+<br>
+  <button type="button" class="btn btn-light" onclick="buscarMedicos()">
     Buscar médicos disponibles
   </button>
 
   <div id="resultado" style="margin-top: 20px; background-color: white; color: black; padding: 15px; border-radius: 10px; display: none;">
     <h4>Médicos disponibles:</h4>
-    <ul id="lista-medicos"></ul>
+    <li style="list-style-type: none;" id="lista-medicos"></li>
   </div>
 </div>
 
@@ -70,7 +72,7 @@ function buscarMedicos() {
   lista.innerHTML = "";
 
   if (especialidad === "") {
-    alert("Por favor, seleccioná una especialidad.");
+    mostrarToast("Por favor, seleccioná una especialidad.");
     return;
   }
 
@@ -93,7 +95,7 @@ function buscarMedicos() {
       const btn = document.createElement("button");
       btn.textContent = "Sacar turno";
       btn.style.marginLeft = "10px";
-      btn.onclick = () => alert("Turno solicitado con " + m);
+      btn.onclick = () => mostrarToast("Turno solicitado con " + m);
       li.appendChild(btn);
       lista.appendChild(li);
     });
@@ -102,5 +104,25 @@ function buscarMedicos() {
 }
 </script>
   <script src="./js/main.js"></script>
+  <!-- Toast Bootstrap -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="toastMsg" class="toast text-white bg-dark border-0" role="alert">
+    <div class="toast-header bg-dark text-white border-0">
+      <strong class="me-auto">ClinicApp</strong>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+    </div>
+    <div class="toast-body"></div>
+  </div>
+</div>
+
+<script>
+function mostrarToast(mensaje) {
+  const toastEl = document.getElementById('toastMsg');
+  toastEl.querySelector('.toast-body').textContent = mensaje;
+  const toast = new bootstrap.Toast(toastEl);
+  toast.show();
+}
+</script>
+
 </body>
 </html>

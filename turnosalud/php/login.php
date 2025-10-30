@@ -33,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   <meta charset="UTF-8">
   <title>Iniciar Sesión - ClinicApp</title>
   <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="./bootstrap/bootstrap-5.3.8-dist/css/bootstrap.min.css">
 </head>
 <body>
 <header>
@@ -48,9 +49,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <input type="password" name="password" placeholder="Contraseña" required><br>
         <button type="submit">Entrar</button>
       </form>
-      <p>¿No tienes cuenta? <a href="registro.php" style="color:white; text-decoration:underline;">Regístrate</a></p>
+      <p>¿No tienes cuenta? <a href="./registro.php" style="color:white; text-decoration:underline;">Regístrate</a></p>
     </div>
   </div>
 </main>
+  <script src:"./bootstrap/bootstrap-5.3.8-dist/js/bootstrap.min.js"></script>
 </body>
 </html>

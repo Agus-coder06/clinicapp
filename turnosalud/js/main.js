@@ -33,7 +33,7 @@ function mostrarFormulario(id, nombre) {
       <input type="date" id="fecha" required><br><br>
       <label>Hora:</label><br>
       <input type="time" id="hora" required><br><br>
-      <button type="submit">Confirmar turno</button>
+      <button type="submit" class="btn btn-primary">Confirmar turno</button>
     </form>
   `;
 
@@ -48,23 +48,23 @@ function mostrarFormulario(id, nombre) {
       body: JSON.stringify({ medico_id: id, fecha, hora })
     })
     .then(res => res.text())
-    .then(msg => alert(msg));
+    .then(msg => mostrarToast(msg)); // ✅ reemplazado alert() por mostrarToast()
   });
 }
 
 function actualizarFechaHora() {
   const fecha = new Date();
-
-  // Opciones para formatear el día y mes en español
   const opciones = { weekday: 'long', day: 'numeric', month: 'long', hour: '2-digit', minute: '2-digit' };
-  
-  // Formatear fecha y hora
   const fechaFormateada = fecha.toLocaleDateString('es-ES', opciones);
-  
-  // Mostrar en el span
   document.getElementById('fecha-hora').textContent = fechaFormateada;
 }
 
-// Actualizar cada minuto
 actualizarFechaHora();
 setInterval(actualizarFechaHora, 60000);
+
+function mostrarToast(mensaje) {
+  const toastEl = document.getElementById('toastMsg');
+  toastEl.querySelector('.toast-body').textContent = mensaje;
+  const toast = new bootstrap.Toast(toastEl);
+  toast.show();
+}
